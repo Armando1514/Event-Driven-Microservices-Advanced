@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>order-service</artifactId>
+        <groupId>com.food.ordering.system</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>order-application-service</artifactId>
+
+    <name>order-application-service</name>
+
+    <!-- I SHOULD NOT ADD ANY OUTSIDE DEPENDENCY.
+         HOWEVER, WE NEED THE ORDER-DOMAIN-CORE DEPENDENCY HERE
+         TO BE ABLE TO CALL THE CORE LOGIC.-->
+
+    <dependencies>
+        <dependency>
+            <groupId>com.food.ordering.system</groupId>
+            <artifactId>order-domain-core</artifactId>
+        </dependency>
+    </dependencies>
+</project>
