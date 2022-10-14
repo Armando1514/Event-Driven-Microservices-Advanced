@@ -17,4 +17,11 @@
     <!-- I SHOULD NOT ADD ANY DEPENDENCY IN THE CORE
          BECAUSE IT HAS TO BE INDEPENDENT AND STABLE
          DUE THE FACT THAT IS INCLUDING THE BUSINESS LOGIC. -->
+
+    <dependencies>
+        <dependency>
+            <groupId>com.food.ordering.system</groupId>
+            <artifactId>common-domain</artifactId>
+        </dependency>
+    </dependencies>
 </project>
