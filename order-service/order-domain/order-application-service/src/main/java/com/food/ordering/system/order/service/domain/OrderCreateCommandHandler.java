@@ -7,7 +7,6 @@ import com.food.ordering.system.order.service.domain.mapper.OrderDataMapper;
 import com.food.ordering.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 
 
@@ -32,7 +31,7 @@ public class OrderCreateCommandHandler {
         OrderCreatedEvent orderCreatedEvent = orderCreateHelper.persistOrder(createOrderCommand);
         log.info("Order is created with id: {} ", orderCreatedEvent.getOrder().getId().getValue());
         orderCreatedPaymentRequestMessagePublisher.publish(orderCreatedEvent);
-        return orderDataMapper.orderToCreateOrderResponse(orderCreatedEvent.getOrder());
+        return orderDataMapper.orderToCreateOrderResponse(orderCreatedEvent.getOrder(), "Order Created Successfully");
     }
 
 

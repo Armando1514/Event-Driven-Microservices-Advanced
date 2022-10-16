@@ -13,7 +13,7 @@ public class RestaurantApprovalResponseMessageListenerImpl implements Restaurant
 
     @Override
     public void orderApproved(RestaurantApprovalResponse restaurantApprovalResponse) {
-        
+
     }
 
     @Override
