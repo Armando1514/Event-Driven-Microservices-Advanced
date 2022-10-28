@@ -19,7 +19,7 @@ public class PaymentResponse {
     private String paymentId;
     private String customerId;
     private BigDecimal price;
-    private Instant createAt;
+    private Instant createdAt;
     private PaymentStatus paymentStatus;
     private List<String> failureMessages;
 }
