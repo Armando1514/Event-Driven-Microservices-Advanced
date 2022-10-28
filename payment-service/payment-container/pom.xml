@@ -15,7 +15,48 @@
     <name>payment-container</name>
 
     <dependencies>
+        <dependency>
+            <groupId>com.food.ordering.system</groupId>
+            <artifactId>payment-domain-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.food.ordering.system</groupId>
+            <artifactId>payment-application-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.food.ordering.system</groupId>
+            <artifactId>payment-dataaccess</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.food.ordering.system</groupId>
+            <artifactId>payment-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <name>${project.groupId}/payment.service:${project.version}</name>
+                    </image>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build-image</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

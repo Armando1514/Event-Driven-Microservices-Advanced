@@ -157,7 +157,7 @@ public class OrderApplicationServiceTest {
     public void testCreateOrder(){
        CreateOrderResponse createOrderResponse = orderApplicationService.createOrder(createOrderCommand);
         assertEquals(OrderStatus.PENDING, createOrderResponse.getOrderStatus());
-        assertEquals("Order Created Successfully", createOrderResponse.getMessage());
+        assertEquals("Order created successfully", createOrderResponse.getMessage());
         assertNotNull(createOrderResponse.getOrderTrackingId());
     }
 
