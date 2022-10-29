@@ -1,10 +1,10 @@
 package com.food.ordering.system.order.service.dataaccess.restaurant.mapper;
 
+import com.food.ordering.system.dataaccess.restaurant.entity.RestaurantEntity;
+import com.food.ordering.system.dataaccess.restaurant.exception.RestaurantDataException;
 import com.food.ordering.system.domain.valueobject.Money;
 import com.food.ordering.system.domain.valueobject.ProductId;
 import com.food.ordering.system.domain.valueobject.RestaurantId;
-import com.food.ordering.system.order.service.dataaccess.restaurant.entity.RestaurantEntity;
-import com.food.ordering.system.order.service.dataaccess.restaurant.exception.RestaurantDataException;
 import com.food.ordering.system.order.service.domain.entity.Product;
 import com.food.ordering.system.order.service.domain.entity.Restaurant;
 import org.springframework.stereotype.Component;
