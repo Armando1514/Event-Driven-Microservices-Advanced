@@ -146,6 +146,11 @@
               <artifactId>common-dataaccess</artifactId>
               <version>${project.version}</version>
           </dependency>
+          <dependency>
+              <groupId>com.food.ordering.system</groupId>
+              <artifactId>saga</artifactId>
+              <version>${project.version}</version>
+          </dependency>
           <!-- END LOCAL DEPENDENCIES -->
           <dependency>
               <groupId>org.mockito</groupId>
