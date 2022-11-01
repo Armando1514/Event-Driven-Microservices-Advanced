@@ -42,9 +42,9 @@ public class RestaurantApprovalRequestMessageListenerImpl implements RestaurantA
                 orderApprovalEvent.getOrderApproval().getId().getValue(),
                 orderApprovalEvent.getOrderApproval().getOrderId().getValue());
 
-        if (orderApprovalEvent instanceof OrderApprovedMessagePublisher) {
+        if (orderApprovalEvent instanceof OrderApprovedEvent) {
             orderApprovedMessagePublisher.publish((OrderApprovedEvent) orderApprovalEvent);
-        } else if (orderApprovalEvent instanceof OrderRejectedMessagePublisher) {
+        } else if (orderApprovalEvent instanceof OrderRejectedEvent) {
             orderRejectedMessagePublisher.publish((OrderRejectedEvent) orderApprovalEvent);
         }
     }

@@ -25,7 +25,7 @@ public class Money {
         return new Money(setScale(this.amount.add(money.getAmount())));
     }
 
-    public Money substract(Money money) {
+    public Money subtract(Money money) {
         return new Money(setScale(this.amount.subtract(money.getAmount())));
     }
 
@@ -55,4 +55,5 @@ public class Money {
         // HALF_EVEN statistically minimise the cumulative error, because rounds toward to nearest neighbor.
         return input.setScale(2, RoundingMode.HALF_EVEN);
     }
+
 }

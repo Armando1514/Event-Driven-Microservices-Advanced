@@ -85,33 +85,32 @@ public class PaymentDomainServiceImpl implements PaymentDomainService{
                 .build());
     }
 
-    private void validateCreditHistory(CreditEntry creditEntry, List<CreditHistory> creditHistories, List<String> failureMessages) {
-        Money totalCreditHistory = creditHistories.stream()
-                .filter(creditHistory -> TransactionType.CREDIT == creditHistory.getTransactionType())
-                .map(CreditHistory::getAmount)
-                .reduce(Money.ZERO, Money::add);
+    private void validateCreditHistory(CreditEntry creditEntry,
+                                       List<CreditHistory> creditHistories,
+                                       List<String> failureMessages) {
+        Money totalCreditHistory = getTotalHistoryAmount(creditHistories, TransactionType.CREDIT);
+        Money totalDebitHistory = getTotalHistoryAmount(creditHistories, TransactionType.DEBIT);
 
-        Money totalDebitHistory = creditHistories.stream()
-                .filter(creditHistory -> TransactionType.DEBIT == creditHistory.getTransactionType())
-                .map(CreditHistory::getAmount)
-                .reduce(Money.ZERO, Money::add);
-
-        if(totalDebitHistory.isGreaterThan(totalCreditHistory)){
+        if (totalDebitHistory.isGreaterThan(totalCreditHistory)) {
             log.error("Customer with id: {} doesn't have enough credit according to credit history",
                     creditEntry.getCustomerId().getValue());
-            failureMessages.add("Customer with id="+creditEntry.getCustomerId().getValue()+
-                    " does not have enough credit for payment according to credit history.");
+            failureMessages.add("Customer with id=" + creditEntry.getCustomerId().getValue() +
+                    " doesn't have enough credit according to credit history!");
         }
 
-        if(creditEntry.getTotalCreditAmount().equals(totalCreditHistory.substract(totalDebitHistory))){
+        if (!creditEntry.getTotalCreditAmount().equals(totalCreditHistory.subtract(totalDebitHistory))) {
             log.error("Credit history total is not equal to current credit for customer id: {}!",
                     creditEntry.getCustomerId().getValue());
-            failureMessages.add("Credit history total is not equal to current credit for customer id: "+ creditEntry.getCustomerId().getValue());
-
+            failureMessages.add("Credit history total is not equal to current credit for customer id: {}" +
+                    creditEntry.getCustomerId().getValue() + "!");
         }
     }
-
-
+    private Money getTotalHistoryAmount(List<CreditHistory> creditHistories, TransactionType transactionType) {
+        return creditHistories.stream()
+                .filter(creditHistory -> transactionType == creditHistory.getTransactionType())
+                .map(CreditHistory::getAmount)
+                .reduce(Money.ZERO, Money::add);
+    }
     private void addCreditEntry(Payment payment, CreditEntry creditEntry) {
         creditEntry.addCreditAmount(payment.getPrice());
     }
