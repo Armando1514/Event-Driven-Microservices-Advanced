@@ -35,12 +35,12 @@ public class ApprovalOutboxHelper {
     @Transactional(readOnly = true)
     public Optional<List<OrderApprovalOutboxMessage>> getApprovalOutboxMessageByOutboxStatusAndSagaStatus(
                 OutboxStatus outboxStatus, SagaStatus... sagaStatus) {
-        return approvalOutboxRepository.findByTypAndOutboxStatusAndSagaStatus(ORDER_SAGA_NAME, outboxStatus, sagaStatus);
+        return approvalOutboxRepository.findByTypeAndOutboxStatusAndSagaStatus(ORDER_SAGA_NAME, outboxStatus, sagaStatus);
     }
 
     @Transactional(readOnly = true)
     public Optional<OrderApprovalOutboxMessage> getApprovalOutboxMessageBySagaIdAndSagaStatus(UUID sagaId, SagaStatus sagaStatus){
-        return approvalOutboxRepository.findByTypeAndSagaStatus(ORDER_SAGA_NAME, sagaId, sagaStatus);
+        return approvalOutboxRepository.findByTypeAndSagaIdAndSagaStatus(ORDER_SAGA_NAME, sagaId, sagaStatus);
     }
 
     @Transactional
