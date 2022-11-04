@@ -1,12 +1,12 @@
 package com.food.ordering.system.restaurant.service.dataaccess.restaurant.mapper;
 
 import com.food.ordering.system.dataaccess.restaurant.entity.RestaurantEntity;
-import com.food.ordering.system.dataaccess.restaurant.exception.RestaurantDataException;
 import com.food.ordering.system.domain.valueobject.Money;
 import com.food.ordering.system.domain.valueobject.OrderId;
 import com.food.ordering.system.domain.valueobject.ProductId;
 import com.food.ordering.system.domain.valueobject.RestaurantId;
 import com.food.ordering.system.restaurant.service.dataaccess.restaurant.entity.OrderApprovalEntity;
+import com.food.ordering.system.restaurant.service.dataaccess.restaurant.exception.RestaurantDataAccessException;
 import com.food.ordering.system.restaurant.service.domain.entity.OrderApproval;
 import com.food.ordering.system.restaurant.service.domain.entity.OrderDetail;
 import com.food.ordering.system.restaurant.service.domain.entity.Product;
@@ -30,7 +30,7 @@ public class RestaurantDataAccessMapper {
     public Restaurant restaurantEntityToRestaurant(List<RestaurantEntity> restaurantEntities) {
         RestaurantEntity restaurantEntity =
                 restaurantEntities.stream().findFirst().orElseThrow(() ->
-                        new RestaurantDataException("No restaurants found!"));
+                        new RestaurantDataAccessException("No restaurants found!"));
 
         List<Product> restaurantProducts = restaurantEntities.stream().map(entity ->
                         Product.Builder.builder()
