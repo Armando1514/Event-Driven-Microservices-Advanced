@@ -26,3 +26,6 @@
 
 ![outbox approval failure](./doc/outbox-approval-failure.png)
 
+## CQRS
+
+![CQRS](./doc/CQRS.jpg)
