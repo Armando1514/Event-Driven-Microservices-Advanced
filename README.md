@@ -79,3 +79,37 @@ Yes, there is not strong consistency between local database operations and data 
 3. Get the orderTrackingId from the response and query the result with a GET operation to http://localhost:8181/orders/toChangewithOrderTrackingId
 
 You will see that first is PAID (payment-service replied), and roughly after 10 seconds, it is APPROVED (restaurant-service confirmed) if you continue to perform GET operation. Notice that if you perform the previous POST operation multiple times, it will fail, because there are not enough funds, and this can be an example of bad path.
+
+## HOW TO LAUNCH THE SERVICES
+
+0. Run Docker and Kubernetes
+
+1. [Install helm](https://helm.sh/docs/intro/install/).
+
+2. Type in terminal:
+
+    ``` bash
+    helm repo add my-repo https://charts.bitnami.com/bitnami
+    helm install my-release my-repo/kafka
+    helm install schema my-repo/schema-registry
+    ```
+
+3. From the project's root type in terminal: ```mvn clean install```
+
+4. Go from terminal in the folder Event-Driven-Microservices-Advanced/infrastructure/k8s and type: ```kubectl apply -f kafka-client.yml```
+
+5. Once the pod is running type in terminal: ```kubectl exec -it kafka-client -- /bin/bash ```
+
+6. Once in the container, let's create the topics needed for running the applications: 
+
+   ```bash
+   kafka-topics --bootstrap-server my-release-kafka:9092 --create --if-not-exists --topic payment-request --replication-factor 1 --partitions 3
+   kafka-topics --bootstrap-server my-release-kafka:9092 --create --if-not-exists --topic payment-response --replication-factor 1 --partitions 3
+   kafka-topics --bootstrap-server my-release-kafka:9092 --create --if-not-exists --topic restaurant-approval-request --replication-factor 1 --partitions 3
+   kafka-topics --bootstrap-server my-release-kafka:9092 --create --if-not-exists --topic restaurant-approval-response --replication-factor 1 --partitions 3
+   kafka-topics --bootstrap-server my-release-kafka:9092 --create --if-not-exists --topic customer --replication-factor 1 --partitions 3
+   ```
+
+7. While still inside the container let's verify that all 5 topics have been created with: ```kafka-topics --zookeeper my-release-zookeeper:2181 --list```
+8. Exit from the container and from the folder Event-Driven-Microservices-Advanced/infrastructure/k8s , type: ```kubectl apply -f postgres-deployment.yml ```
+9. Wait that postgres is running and after type: ```kubectl apply -f application-deployment-local.yml```
