@@ -34,6 +34,18 @@
 
 Yes, there is not strong consistency between local database operations and data publishing operation for the customer service, outbox pattern implementation can fix that.
 
+## CHANGE DATA CAPTURE (CDC)
+
+- Use Push method as opposed to Pulling
+
+- Push database records into target source (Kafka) by reading from Transaction Logs (WAL in Postgres)
+
+  ![CDC](./doc/cdc.png)
+
+  Will be replacing the scheduler written in Java:
+
+  ![CDC VS SCHEDULER](./doc/cdc-vs-scheduler.png)
+
 ## API USAGE
 
 1. POST request to http://localhost:8184/customers with JSON body:
